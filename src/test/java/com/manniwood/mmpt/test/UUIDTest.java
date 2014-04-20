@@ -59,7 +59,7 @@ public class UUIDTest {
 
         SqlSession session = sqlSessionFactory.openSession();
         try {
-            session.delete("test.truncateTest");
+            session.delete("test.truncateUUIDTest");
             session.commit(true);
         } finally {
             session.close();  // org.apache.ibatis.executor.BaseExecutor does rollback if an exception is thrown
@@ -74,7 +74,7 @@ public class UUIDTest {
         t.setName(TEST_NAME);
         SqlSession session = sqlSessionFactory.openSession();
         try {
-            session.insert("test.insertTest", t);
+            session.insert("test.insertUUIDTest", t);
             session.commit(true);
         } finally {
             session.close();  // org.apache.ibatis.executor.BaseExecutor does rollback if an exception is thrown
@@ -83,7 +83,7 @@ public class UUIDTest {
         UUIDBean result;
         session = sqlSessionFactory.openSession();
         try {
-            result = session.selectOne("test.selectTest", t);
+            result = session.selectOne("test.selectUUIDTest", t);
             session.rollback(true);  // just a select; rollback
         } finally {
             session.close();  // org.apache.ibatis.executor.BaseExecutor does rollback if an exception is thrown

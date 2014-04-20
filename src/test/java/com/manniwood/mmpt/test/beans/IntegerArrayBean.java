@@ -1,12 +1,12 @@
 package com.manniwood.mmpt.test.beans;
 
 
-public class IntArrayBean2 {
+public class IntegerArrayBean {
 
     private Integer[] integerArray;
     private String name;
 
-    public IntArrayBean2() {
+    public IntegerArrayBean() {
         // null constructor keeps mybatis happy
     }
 

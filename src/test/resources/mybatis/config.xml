@@ -9,7 +9,7 @@
     <typeAlias alias="UUID"            type="java.util.UUID" />
     <typeAlias alias="UUIDTypeHandler" type="com.manniwood.mmpt.typehandlers.UUIDTypeHandler" />
 
-    <typeAlias alias="IntArrayBean2"        type="com.manniwood.mmpt.test.beans.IntArrayBean2" />
+    <typeAlias alias="IntegerArrayBean"        type="com.manniwood.mmpt.test.beans.IntegerArrayBean" />
     <typeAlias alias="IntegerArrayTypeHandler" type="com.manniwood.mmpt.typehandlers.IntegerArrayTypeHandler" />
   </typeAliases>
 

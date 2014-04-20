@@ -4,25 +4,25 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="test">
 
-  <delete id="truncateTest">
-    truncate table test
+  <delete id="truncateUUIDTest">
+    truncate table uuid_test
   </delete>
 
-  <insert id="insertTest" parameterType="UUIDBean">
-    insert into test (test_id, name) values (#{testId,javaType=UUID,jdbcType=OTHER,typeHandler=UUIDTypeHandler}, #{name})
+  <insert id="insertUUIDTest" parameterType="UUIDBean">
+    insert into uuid_test (test_id, name) values (#{testId,javaType=UUID,jdbcType=OTHER,typeHandler=UUIDTypeHandler}, #{name})
   </insert>
 
-  <resultMap id="selectTestResultMap" type="UUIDBean">
+  <resultMap id="selectUUIDTestResultMap" type="UUIDBean">
     <id     property="testId"  column="test_id"  typeHandler="UUIDTypeHandler" />
     <result property="name"    column="name"     />
   </resultMap>
 
-  <select id="selectTest"
+  <select id="selectUUIDTest"
           parameterType="UUIDBean"
-          resultMap="selectTestResultMap">
+          resultMap="selectUUIDTestResultMap">
     select test_id,
            name
-      from test
+      from uuid_test
      where test_id = #{testId,javaType=UUID,jdbcType=OTHER,typeHandler=UUIDTypeHandler}
        and name = #{name}
   </select>
@@ -33,18 +33,18 @@
     truncate table int_array_test
   </delete>
 
-  <insert id="insertIntArray2" parameterType="IntArrayBean2">
+  <insert id="insertIntArray" parameterType="IntegerArrayBean">
     insert into int_array_test (int_array, name) values (#{integerArray,javaType=int[],jdbcType=OTHER,typeHandler=IntegerArrayTypeHandler}, #{name})
   </insert>
 
-  <resultMap id="selectIntegerArrayResultMap" type="IntArrayBean2">
+  <resultMap id="selectIntArrayResultMap" type="IntegerArrayBean">
     <id     property="integerArray"  column="int_array"  typeHandler="IntegerArrayTypeHandler" />
-    <result property="name"      column="name"     />
+    <result property="name"          column="name"     />
   </resultMap>
 
-  <select id="selectIntArray2"
-          parameterType="IntArrayBean2"
-          resultMap="selectIntegerArrayResultMap">
+  <select id="selectIntArray"
+          parameterType="IntegerArrayBean"
+          resultMap="selectIntArrayResultMap">
     select int_array,
            name
       from int_array_test

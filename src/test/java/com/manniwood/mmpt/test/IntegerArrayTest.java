@@ -15,12 +15,12 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.manniwood.mmpt.test.beans.IntArrayBean2;
+import com.manniwood.mmpt.test.beans.IntegerArrayBean;
 
 @Test
-public class IntegerArrayTest2 {
+public class IntegerArrayTest {
 
-    private static Logger log = LoggerFactory.getLogger(IntegerArrayTest2.class);
+    private static Logger log = LoggerFactory.getLogger(IntegerArrayTest.class);
 
     private static final String TEST_NAME = "foo";
 
@@ -29,7 +29,7 @@ public class IntegerArrayTest2 {
     private  SqlSessionFactory sqlSessionFactory = null;
 
 
-    public IntegerArrayTest2() {
+    public IntegerArrayTest() {
         // empty constructor
     }
 
@@ -67,22 +67,22 @@ public class IntegerArrayTest2 {
 
     @Test
     public void testIntArray() {
-        IntArrayBean2 t = new IntArrayBean2();
+        IntegerArrayBean t = new IntegerArrayBean();
         Integer[] intArray = new Integer[] { 1, 2, 3 };
         t.setIntegerArray(intArray);
         t.setName(TEST_NAME);
         SqlSession session = sqlSessionFactory.openSession();
         try {
-            session.insert("test.insertIntArray2", t);
+            session.insert("test.insertIntArray", t);
             session.commit(true);
         } finally {
             session.close();  // org.apache.ibatis.executor.BaseExecutor does rollback if an exception is thrown
         }
 
-        IntArrayBean2 result;
+        IntegerArrayBean result;
         session = sqlSessionFactory.openSession();
         try {
-            result = session.selectOne("test.selectIntArray2", t);
+            result = session.selectOne("test.selectIntArray", t);
             session.rollback(true);  // just a select; rollback
         } finally {
             session.close();  // org.apache.ibatis.executor.BaseExecutor does rollback if an exception is thrown
