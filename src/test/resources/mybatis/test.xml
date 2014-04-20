@@ -27,4 +27,27 @@
        and name = #{name}
   </select>
 
+  <delete id="truncateIntArrayTest">
+    truncate table int_array_test
+  </delete>
+
+  <insert id="insertIntArray" parameterType="IntArrayBean">
+    insert into int_array_test (int_array, name) values (#{integerArrayWrapper,javaType=IntegerArrayWrapper,jdbcType=OTHER,typeHandler=IntegerArrayWrapperTypeHandler}, #{name})
+  </insert>
+
+  <resultMap id="selectIntegerArrayWrapperResultMap" type="IntArrayBean">
+    <id     property="integerArrayWrapper"  column="int_array"  typeHandler="IntegerArrayWrapperTypeHandler" />
+    <result property="name"      column="name"     />
+  </resultMap>
+
+  <select id="selectIntArray"
+          parameterType="IntArrayBean"
+          resultMap="selectIntegerArrayWrapperResultMap">
+    select int_array,
+           name
+      from int_array_test
+     where int_array = #{integerArrayWrapper,javaType=IntegerArrayWrapper,jdbcType=OTHER,typeHandler=IntegerArrayWrapperTypeHandler}
+       and name = #{name}
+  </select>
+
 </mapper>

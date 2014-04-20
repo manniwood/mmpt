@@ -8,6 +8,10 @@
     <typeAlias alias="UUIDBean"        type="com.manniwood.mmpt.test.beans.UUIDBean" />
     <typeAlias alias="UUID"            type="java.util.UUID" />
     <typeAlias alias="UUIDTypeHandler" type="com.manniwood.mmpt.typehandlers.UUIDTypeHandler" />
+
+    <typeAlias alias="IntArrayBean"        type="com.manniwood.mmpt.test.beans.IntArrayBean" />
+    <typeAlias alias="IntegerArrayWrapper"            type="com.manniwood.mmpt.typehandlers.IntegerArrayWrapper" />
+    <typeAlias alias="IntegerArrayWrapperTypeHandler" type="com.manniwood.mmpt.typehandlers.IntegerArrayWrapperTypeHandler" />
   </typeAliases>
 
   <typeHandlers>
