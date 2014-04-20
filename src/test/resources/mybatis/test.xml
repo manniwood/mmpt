@@ -14,10 +14,6 @@
          name     text  not null)
   </insert>
 
-  <delete id="truncateUUIDTest">
-    truncate table uuid_test
-  </delete>
-
   <insert id="insertUUIDTest" parameterType="UUIDBean">
     insert into uuid_test (test_id, name) values (#{testId,javaType=UUID,jdbcType=OTHER,typeHandler=UUIDTypeHandler}, #{name})
   </insert>
@@ -38,6 +34,16 @@
   </select>
 
 
+
+  <delete id="dropIntArrayTestTable">
+    drop table if exists int_array_test
+  </delete>
+
+  <insert id="createIntArrayTestTable">
+    create table int_array_test (
+        int_array  integer[]  not null,
+        name       text       not null)
+  </insert>
 
   <delete id="truncateIntArrayTest">
     truncate table int_array_test
