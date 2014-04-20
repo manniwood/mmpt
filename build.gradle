@@ -21,7 +21,9 @@ dependencies {
 test {
     useTestNG()
 
-    options.suites("src/test/resources/testng.xml")
+    // options.suites("$projectDir/src/test/resources/testng.xml")
+    // work with gradle 11
+    options.suites file('src/test/resources/testng.xml')
 
     // show standard out and standard error of the test JVM(s) on the console
     testLogging.showStandardStreams = true
