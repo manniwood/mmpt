@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="mmpt" parallel="false">
+    <test verbose="2" name="mmpt" annotations="JDK" preserve-order="true">
+        <classes>
+            <class name="com.manniwood.mmpt.test.factory.TestNGTestFactory" />
+        </classes>
+    </test>
+</suite>

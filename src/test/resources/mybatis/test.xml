@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test">
+
+  <delete id="truncateTest">
+    truncate table test
+  </delete>
+
+  <insert id="insertTest" parameterType="UUIDBean">
+    insert into test (test_id, name) values (#{testId,javaType=UUID,jdbcType=OTHER,typeHandler=UUIDTypeHandler}, #{name})
+  </insert>
+
+  <resultMap id="selectTestResultMap" type="UUIDBean">
+    <id     property="testId"  column="test_id"  typeHandler="UUIDTypeHandler" />
+    <result property="name"    column="name"     />
+  </resultMap>
+
+  <select id="selectTest"
+          parameterType="UUIDBean"
+          resultMap="selectTestResultMap">
+    select test_id,
+           name
+      from test
+     where test_id = #{testId,javaType=UUID,jdbcType=OTHER,typeHandler=UUIDTypeHandler}
+       and name = #{name}
+  </select>
+
+</mapper>
