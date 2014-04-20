@@ -4,6 +4,16 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="test">
 
+  <delete id="dropUUIDTestTable">
+    drop table if exists uuid_test
+  </delete>
+
+  <insert id="createUUIDTestTable">
+    create table uuid_test (
+         test_id  uuid  not null,
+         name     text  not null)
+  </insert>
+
   <delete id="truncateUUIDTest">
     truncate table uuid_test
   </delete>

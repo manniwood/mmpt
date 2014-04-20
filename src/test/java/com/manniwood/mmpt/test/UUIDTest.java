@@ -35,6 +35,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -82,12 +83,24 @@ public class UUIDTest {
 
         SqlSession session = sqlSessionFactory.openSession();
         try {
-            session.delete("test.truncateUUIDTest");
+            session.delete("test.dropUUIDTestTable");
+            session.insert("test.createUUIDTestTable");
             session.commit(true);
         } finally {
             session.close();  // org.apache.ibatis.executor.BaseExecutor does rollback if an exception is thrown
         }
 
+    }
+
+    @AfterClass
+    protected void wrapUp() {
+        SqlSession session = sqlSessionFactory.openSession();
+        try {
+            session.delete("test.dropUUIDTestTable");
+            session.commit(true);
+        } finally {
+            session.close();  // org.apache.ibatis.executor.BaseExecutor does rollback if an exception is thrown
+        }
     }
 
     @Test
