@@ -27,26 +27,28 @@
        and name = #{name}
   </select>
 
+
+
   <delete id="truncateIntArrayTest">
     truncate table int_array_test
   </delete>
 
-  <insert id="insertIntArray" parameterType="IntArrayBean">
-    insert into int_array_test (int_array, name) values (#{integerArrayWrapper,javaType=IntegerArrayWrapper,jdbcType=OTHER,typeHandler=IntegerArrayWrapperTypeHandler}, #{name})
+  <insert id="insertIntArray2" parameterType="IntArrayBean2">
+    insert into int_array_test (int_array, name) values (#{integerArray,javaType=int[],jdbcType=OTHER,typeHandler=IntegerArrayTypeHandler}, #{name})
   </insert>
 
-  <resultMap id="selectIntegerArrayWrapperResultMap" type="IntArrayBean">
-    <id     property="integerArrayWrapper"  column="int_array"  typeHandler="IntegerArrayWrapperTypeHandler" />
+  <resultMap id="selectIntegerArrayResultMap" type="IntArrayBean2">
+    <id     property="integerArray"  column="int_array"  typeHandler="IntegerArrayTypeHandler" />
     <result property="name"      column="name"     />
   </resultMap>
 
-  <select id="selectIntArray"
-          parameterType="IntArrayBean"
-          resultMap="selectIntegerArrayWrapperResultMap">
+  <select id="selectIntArray2"
+          parameterType="IntArrayBean2"
+          resultMap="selectIntegerArrayResultMap">
     select int_array,
            name
       from int_array_test
-     where int_array = #{integerArrayWrapper,javaType=IntegerArrayWrapper,jdbcType=OTHER,typeHandler=IntegerArrayWrapperTypeHandler}
+     where int_array = #{integerArray,javaType=int[],jdbcType=OTHER,typeHandler=IntegerArrayTypeHandler}
        and name = #{name}
   </select>
 

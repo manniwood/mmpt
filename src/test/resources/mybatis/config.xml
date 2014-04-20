@@ -9,9 +9,8 @@
     <typeAlias alias="UUID"            type="java.util.UUID" />
     <typeAlias alias="UUIDTypeHandler" type="com.manniwood.mmpt.typehandlers.UUIDTypeHandler" />
 
-    <typeAlias alias="IntArrayBean"        type="com.manniwood.mmpt.test.beans.IntArrayBean" />
-    <typeAlias alias="IntegerArrayWrapper"            type="com.manniwood.mmpt.typehandlers.IntegerArrayWrapper" />
-    <typeAlias alias="IntegerArrayWrapperTypeHandler" type="com.manniwood.mmpt.typehandlers.IntegerArrayWrapperTypeHandler" />
+    <typeAlias alias="IntArrayBean2"        type="com.manniwood.mmpt.test.beans.IntArrayBean2" />
+    <typeAlias alias="IntegerArrayTypeHandler" type="com.manniwood.mmpt.typehandlers.IntegerArrayTypeHandler" />
   </typeAliases>
 
   <typeHandlers>

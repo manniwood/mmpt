@@ -15,13 +15,12 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.manniwood.mmpt.test.beans.IntArrayBean;
-import com.manniwood.mmpt.typehandlers.IntegerArrayWrapper;
+import com.manniwood.mmpt.test.beans.IntArrayBean2;
 
 @Test
-public class IntegerArrayTest {
+public class IntegerArrayTest2 {
 
-    private static Logger log = LoggerFactory.getLogger(IntegerArrayTest.class);
+    private static Logger log = LoggerFactory.getLogger(IntegerArrayTest2.class);
 
     private static final String TEST_NAME = "foo";
 
@@ -30,7 +29,7 @@ public class IntegerArrayTest {
     private  SqlSessionFactory sqlSessionFactory = null;
 
 
-    public IntegerArrayTest() {
+    public IntegerArrayTest2() {
         // empty constructor
     }
 
@@ -68,28 +67,27 @@ public class IntegerArrayTest {
 
     @Test
     public void testIntArray() {
-        IntArrayBean t = new IntArrayBean();
+        IntArrayBean2 t = new IntArrayBean2();
         Integer[] intArray = new Integer[] { 1, 2, 3 };
-        IntegerArrayWrapper wrapper = new IntegerArrayWrapper(intArray);
-        t.setIntegerArrayWrapper(wrapper);
+        t.setIntegerArray(intArray);
         t.setName(TEST_NAME);
         SqlSession session = sqlSessionFactory.openSession();
         try {
-            session.insert("test.insertIntArray", t);
+            session.insert("test.insertIntArray2", t);
             session.commit(true);
         } finally {
             session.close();  // org.apache.ibatis.executor.BaseExecutor does rollback if an exception is thrown
         }
 
-        IntArrayBean result;
+        IntArrayBean2 result;
         session = sqlSessionFactory.openSession();
         try {
-            result = session.selectOne("test.selectIntArray", t);
+            result = session.selectOne("test.selectIntArray2", t);
             session.rollback(true);  // just a select; rollback
         } finally {
             session.close();  // org.apache.ibatis.executor.BaseExecutor does rollback if an exception is thrown
         }
-        Assert.assertTrue(Arrays.equals(intArray, result.getIntegerArrayWrapper().getIntegerArray()), "blah");
+        Assert.assertTrue(Arrays.equals(intArray, result.getIntegerArray()), "blah");
         Assert.assertEquals(TEST_NAME, result.getName(), "Test name needs to be " + TEST_NAME);
     }
 }
