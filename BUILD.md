@@ -8,3 +8,7 @@ Once gradle is installed, all you will need to do is:
 gradle jar
 ```
 
+## Testing
+
+TODO: describe test database requred
+
