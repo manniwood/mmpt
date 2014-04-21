@@ -44,7 +44,7 @@ public class IntegerArrayTypeHandler extends BaseTypeHandler<Integer[]> {
             Integer[] parameter, JdbcType jdbcType) throws SQLException {
         Connection c = ps.getConnection();
         Array inArray = c.createArrayOf("int", parameter);
-        ps.setArray(1, inArray);
+        ps.setArray(i, inArray);
     }
 
     @Override
