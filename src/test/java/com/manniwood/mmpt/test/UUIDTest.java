@@ -33,7 +33,6 @@ import com.manniwood.mmpt.test.beans.UUIDBean;
 @Test
 public class UUIDTest extends TypeTest {
 
-    private static final String TEST_NAME = "foo";
     private static final String TABLE_CREATE_ID = "test.createUUIDTestTable";
     private static final String TEST_UUID_STR = "37a82ee2-114c-4044-ba90-c073bf6d7830";
 
@@ -43,16 +42,33 @@ public class UUIDTest extends TypeTest {
 
     @Test
     public void testUUID() {
+        String testName = "regular test";
         UUIDBean t = new UUIDBean();
         t.setTestId(UUID.fromString(TEST_UUID_STR));
-        t.setName(TEST_NAME);
-        session.insert("test.insertUUIDTest", t);
+        t.setName(testName);
+        session.insert("test.insertUUID", t);
         session.commit(true);
 
         UUIDBean result;
-        result = session.selectOne("test.selectUUIDTest", t);
+        result = session.selectOne("test.selectUUID", t);
         session.rollback(true);  // just a select; rollback
         Assert.assertEquals(UUID.fromString(TEST_UUID_STR).toString(), result.getTestId().toString(), "Test id needs to be " + TEST_UUID_STR);
-        Assert.assertEquals(TEST_NAME, result.getName(), "Test name needs to be " + TEST_NAME);
+        Assert.assertEquals(testName, result.getName(), "Test name needs to be " + testName);
+    }
+
+    @Test
+    public void testNullUUID() {
+        String testName = "null test";
+        UUIDBean t = new UUIDBean();
+        t.setTestId(null);
+        t.setName(testName);
+        session.insert("test.insertUUID", t);
+        session.commit(true);
+
+        UUIDBean result;
+        result = session.selectOne("test.selectNullUUID", t);
+        session.rollback(true);  // just a select; rollback
+        Assert.assertNull(result.getTestId(), "UUID needs to be null.");
+        Assert.assertEquals(testName, result.getName(), "Test name needs to be " + testName);
     }
 }

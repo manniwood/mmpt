@@ -4,24 +4,25 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="test">
 
+  <!-- test_id col allowed to be null so we can test null -->
   <insert id="createUUIDTestTable">
     create temporary table uuid_test (
-         test_id  uuid  not null,
+         test_id  uuid      null,
          name     text  not null)
   </insert>
 
-  <insert id="insertUUIDTest" parameterType="UUIDBean">
+  <insert id="insertUUID" parameterType="UUIDBean">
     insert into uuid_test (test_id, name) values (#{testId,javaType=UUID,jdbcType=OTHER,typeHandler=UUIDTypeHandler}, #{name})
   </insert>
 
-  <resultMap id="selectUUIDTestResultMap" type="UUIDBean">
+  <resultMap id="selectUUIDResultMap" type="UUIDBean">
     <id     property="testId"  column="test_id"  typeHandler="UUIDTypeHandler" />
     <result property="name"    column="name"     />
   </resultMap>
 
-  <select id="selectUUIDTest"
+  <select id="selectUUID"
           parameterType="UUIDBean"
-          resultMap="selectUUIDTestResultMap">
+          resultMap="selectUUIDResultMap">
     select test_id,
            name
       from uuid_test
@@ -29,12 +30,22 @@
        and name = #{name}
   </select>
 
+  <select id="selectNullUUID"
+          parameterType="UUIDBean"
+          resultMap="selectUUIDResultMap">
+    select test_id,
+           name
+      from uuid_test
+     where name = #{name}
+  </select>
 
 
 
+
+  <!-- int_array col allowed to be null so we can test null -->
   <insert id="createIntArrayTestTable">
     create temporary table int_array_test (
-        int_array  integer[]  not null,
+        int_array  integer[]      null,
         name       text       not null)
   </insert>
 
@@ -55,6 +66,15 @@
       from int_array_test
      where int_array = #{integerArray,javaType=int[],jdbcType=OTHER,typeHandler=IntegerArrayTypeHandler}
        and name = #{name}
+  </select>
+
+  <select id="selectNullIntArray"
+          parameterType="IntegerArrayBean"
+          resultMap="selectIntArrayResultMap">
+    select int_array,
+           name
+      from int_array_test
+     where name = #{name}
   </select>
 
 </mapper>

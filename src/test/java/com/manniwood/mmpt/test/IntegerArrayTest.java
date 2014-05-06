@@ -33,7 +33,6 @@ import com.manniwood.mmpt.test.beans.IntegerArrayBean;
 @Test
 public class IntegerArrayTest extends TypeTest {
 
-    private static final String TEST_NAME = "foo";
     private static final String TABLE_CREATE_ID = "test.createIntArrayTestTable";
 
     public IntegerArrayTest() {
@@ -42,10 +41,11 @@ public class IntegerArrayTest extends TypeTest {
 
     @Test
     public void testIntArray() {
+        String testName = "basic test";
         IntegerArrayBean t = new IntegerArrayBean();
         Integer[] intArray = new Integer[] { 1, 2, 3 };
         t.setIntegerArray(intArray);
-        t.setName(TEST_NAME);
+        t.setName(testName);
         session.insert("test.insertIntArray", t);
         session.commit(true);
 
@@ -53,8 +53,44 @@ public class IntegerArrayTest extends TypeTest {
         result = session.selectOne("test.selectIntArray", t);
         session.rollback(true);  // just a select; rollback
 
-        Assert.assertTrue(Arrays.equals(intArray, result.getIntegerArray()), "blah");
-        Assert.assertEquals(TEST_NAME, result.getName(), "Test name needs to be " + TEST_NAME);
+        Assert.assertTrue(Arrays.equals(intArray, result.getIntegerArray()), "Integer arrays need to match.");
+        Assert.assertEquals(testName, result.getName(), "Test name needs to be " + testName);
+    }
+
+    @Test
+    public void testIntArrayWithEmbeddedNulls() {
+        String testName = "embedded null test";
+        IntegerArrayBean t = new IntegerArrayBean();
+        Integer[] intArray = new Integer[] { 1, null, 3 };
+        t.setIntegerArray(intArray);
+        t.setName(testName);
+        session.insert("test.insertIntArray", t);
+        session.commit(true);
+
+        IntegerArrayBean result;
+        result = session.selectOne("test.selectIntArray", t);
+        session.rollback(true);  // just a select; rollback
+
+        Assert.assertTrue(Arrays.equals(intArray, result.getIntegerArray()), "Integer arrays need to match.");
+        Assert.assertEquals(testName, result.getName(), "Test name needs to be " + testName);
+    }
+
+    @Test
+    public void testNullIntArray() {
+        String testName = "null test";
+        IntegerArrayBean t = new IntegerArrayBean();
+        Integer[] intArray = null;
+        t.setIntegerArray(intArray);
+        t.setName(testName);
+        session.insert("test.insertIntArray", t);
+        session.commit(true);
+
+        IntegerArrayBean result;
+        result = session.selectOne("test.selectNullIntArray", t);
+        session.rollback(true);  // just a select; rollback
+
+        Assert.assertNull(result.getIntegerArray(), "Integer array must be null.");
+        Assert.assertEquals(testName, result.getName(), "Test name needs to be " + testName);
     }
 }
 
