@@ -1,0 +1,4 @@
+
+Make tests deeper: what happens to nulls?
+connection.createArray: no need to release any resources?
+
