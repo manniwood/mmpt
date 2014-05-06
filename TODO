@@ -1,4 +1,9 @@
 
-Make tests deeper: what happens to nulls?
-connection.createArray: no need to release any resources?
+Flesh out README.md, especially how to run tests on
+a PostgreSQL instance.
+
+Also flesh out how to use the library itself.
+
+Do all the array types: byte array, long array,
+String array, etc, etc.
 
