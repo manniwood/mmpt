@@ -1,3 +1,4 @@
+apply plugin: 'maven'
 apply plugin: 'java'
 apply plugin: 'eclipse'
 
@@ -10,11 +11,11 @@ repositories {
 }
 
 dependencies {
-    compile 'ch.qos.logback:logback-core:1.1.2'
-    compile 'ch.qos.logback:logback-classic:1.1.2'
-    compile 'org.slf4j:slf4j-api:1.7.7'
-    compile 'org.postgresql:postgresql:9.3-1101-jdbc4'
     compile 'org.mybatis:mybatis:3.2.7'
+    testCompile 'org.postgresql:postgresql:9.3-1101-jdbc4'
+    testCompile 'ch.qos.logback:logback-core:1.1.2'
+    testCompile 'ch.qos.logback:logback-classic:1.1.2'
+    testCompile 'org.slf4j:slf4j-api:1.7.7'
     testCompile 'org.testng:testng:6.8.8'
 }
 
@@ -27,5 +28,20 @@ test {
 
     // show standard out and standard error of the test JVM(s) on the console
     testLogging.showStandardStreams = true
+}
+
+task writePom << {
+    pom {
+        project {
+            inceptionYear '2014'
+            licenses {
+                license {
+                    name 'MIT License'
+                    url 'http://opensource.org/licenses/MIT'
+                    distribution 'repo'
+                }
+            }
+        }
+    }.writeTo("$buildDir/poms/pom.xml")
 }
 
