@@ -30,27 +30,27 @@ In the typeAliases section of your MyBatis configuration file,
 put the following type aliases (this part is optional, but
 it will save you typing later:
 
-'''
+```
 <typeAliases>
     <typeAlias alias="UUIDTypeHandler" type="com.manniwood.mmpt.typehandlers.UUIDTypeHandler" />
     <typeAlias alias="IntegerArrayTypeHandler" type="com.manniwood.mmpt.typehandlers.IntegerArrayTypeHandler" />
 </typeAliases>
-'''
+```
 
 In the typeHandlers section of your MyBatis configuration file,
 put the following line:
 
-'''
+```
 <typeHandlers>
     <package name="com.manniwood.mmpt.typehandlers"/>
  </typeHandlers>
-'''
+```
 
 Let's say you have these beans that you would like mapped:
 
 A bean with a UUID attribute:
 
-'''
+```
 package com.manniwood.mmpt.test.beans;
 
 import java.util.UUID;
@@ -80,11 +80,11 @@ public class UUIDBean {
         this.name = name;
     }
 }
-'''
+```
 
 A bean with an integer array attribute:
 
-'''
+```
 package com.manniwood.mmpt.test.beans;
 
 public class IntegerArrayBean {
@@ -112,11 +112,11 @@ public class IntegerArrayBean {
         this.name = name;
     }
 }
-'''
+```
 
 You can set up these aliases in your MyBatis config file:
 
-'''
+```
   <typeAliases>
     <typeAlias alias="UUIDBean"        type="com.manniwood.mmpt.test.beans.UUIDBean" />
     <typeAlias alias="UUID"            type="java.util.UUID" />
@@ -125,11 +125,11 @@ You can set up these aliases in your MyBatis config file:
     <typeAlias alias="IntegerArrayBean"        type="com.manniwood.mmpt.test.beans.IntegerArrayBean" />
     <typeAlias alias="IntegerArrayTypeHandler" type="com.manniwood.mmpt.typehandlers.IntegerArrayTypeHandler" />
   </typeAliases>
-'''
+```
 
 In your mappers file, you can do things like this:
 
-'''
+```
   <insert id="createUUIDTestTable">
     create temporary table uuid_test (
          test_id  uuid      null,
@@ -197,7 +197,7 @@ In your mappers file, you can do things like this:
       from int_array_test
      where name = #{name}
   </select>
-'''
+```
 
 Yes, it's a little wordy, but it works great.
 
