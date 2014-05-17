@@ -62,5 +62,36 @@ task writePom << {
     }.writeTo("$buildDir/poms/pom.xml")
 }
 
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "file://localhost/tmp/myRepo/")
+            pom {
+                project {
+                    inceptionYear '2014'
+                    licenses {
+                        license {
+                            name 'MIT License'
+                            url 'http://opensource.org/licenses/MIT'
+                            distribution 'repo'
+                        }
+                    }
+                }
+            }.whenConfigured { pom ->
+                // Maven scopes are: compile, runtime, test, system, provided.
+                // Gradle seems to map its own testCompile to Maven's test
+                println "\nDependencies before filtering:\n"
+                pom.dependencies.each {
+                    println "SCOPE: $it.scope, $it"
+                }
+                pom.dependencies.removeAll { it.scope == "test" }
+                println "\nDependencies after removing test scope:\n"
+                pom.dependencies.each {
+                    println "SCOPE: $it.scope, $it"
+                }
+            }
+        }
+    }
+}
 
 
