@@ -17,9 +17,27 @@ array types.
 
 ## Installation
 
-For now, I do not have a Maven repo for MMPT, nor do I have
-a downloadable jar file yet. When I release version 1.0,
-those things will be in place.
+(COMING SOON. MVN REPO NOT SET UP YET.)
+
+For Gradle users, your "repositories" section will have
+the Manni Wood repository added to it:
+
+```
+repositories {
+    mavenCentral()
+    maven {
+        name = 'Manni Wood'
+        url = 'http://www.manniwood.com/mvn'
+    }
+}
+```
+and then your dependencies section will have this entry:
+```
+dependencies {
+    compile 'com.manniwood:mmpt:1.0'
+    // other dependencies here, obviously
+}
+```
 
 ## Use
 

@@ -12,6 +12,10 @@ To create the maven artifacts:
 ```
 ./gradlew uploadArchives
 ```
+which will make a little local mvn repo at /tmp/myRepo.
+
+Copy that directory structure to the mvn directory
+of your web server, and you will be good to go.
 
 ## Testing
 
