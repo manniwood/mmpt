@@ -3,7 +3,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 
 group = 'com.manniwood'
-version = '1.1-SNAPSHOT'
+version = '1.1'
 description = "Manni's MyBatis PostgreSQL Tpes"
 
 repositories {
@@ -42,7 +42,14 @@ artifacts {
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: "file:///$buildDir/repo")
+            // If you want to make a local mvn dir layout, use this next line:
+            // repository(url: "file:///$buildDir/repo")
+
+            // This uploads to BinTray. You need need mwBintrayUser and
+            // mwBinTrayApiKey defined in ~/.gradle/gradle.properties
+            repository(url: "https://api.bintray.com/maven/manniwood/maven/mmpt") {
+                authentication(userName: mwBintrayUser, password: mwBintrayApiKey)
+            }
             pom {
                 project {
                     inceptionYear '2014'

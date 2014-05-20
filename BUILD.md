@@ -12,10 +12,9 @@ To create the maven artifacts:
 ```
 ./gradlew uploadArchives
 ```
-which will make a little local mvn repo at /tmp/myRepo.
+which will upload them up to BinTray.
 
-Copy that directory structure to the mvn directory
-of your web server, and you will be good to go.
+You will need the username and BinTray API Key in ~/.gradle/gradle.properties
 
 ## Testing
 

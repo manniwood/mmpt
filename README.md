@@ -8,7 +8,7 @@ As we all know, PostgreSQL has a rich, extensible type system.
 MyBatis, much to its credit, can have new type handlers plugged
 into it.
 
-As of this writing (1.0-SNAPSHOT version), MMPT has a UUID
+As of this writing (version 1.1), MMPT has a UUID
 type handler, and an IntegerArray type handler.
 
 PostgreSQL allows storing any type as an array, so as I grow
@@ -16,8 +16,6 @@ this library, I will be adding type handlers for all of the
 array types.
 
 ## Installation
-
-(COMING SOON. MVN REPO NOT SET UP YET.)
 
 For Gradle users, your "repositories" section will have
 the Manni Wood repository added to it:
@@ -27,22 +25,19 @@ repositories {
     mavenCentral()
     maven {
         name = 'Manni Wood'
-        url = 'http://www.manniwood.com/mvn'
+        url = 'http://dl.bintray.com/manniwood/maven'
     }
 }
 ```
 and then your dependencies section will have this entry:
 ```
 dependencies {
-    compile 'com.manniwood:mmpt:1.0'
+    compile 'com.manniwood:mmpt:1.1'
     // other dependencies here, obviously
 }
 ```
 
 ## Use
-
-Put the MMPT jar in your classpath. (I know, I haven't made
-a jar available yet on github, but I will soon.)
 
 In the typeAliases section of your MyBatis configuration file,
 put the following type aliases (this part is optional, but
