@@ -42,7 +42,7 @@ artifacts {
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: "file://localhost/tmp/myRepo/")
+            repository(url: "file:///$buildDir/repo")
             pom {
                 project {
                     inceptionYear '2014'
