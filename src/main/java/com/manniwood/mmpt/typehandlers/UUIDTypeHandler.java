@@ -34,6 +34,9 @@ import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedJdbcTypes;
 import org.apache.ibatis.type.MappedTypes;
 
+/**
+ * @author Manni Wood
+ */
 @MappedJdbcTypes(JdbcType.OTHER)
 @MappedTypes(UUID.class)
 public class UUIDTypeHandler extends BaseTypeHandler<UUID> {

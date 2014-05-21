@@ -39,44 +39,44 @@ import org.apache.ibatis.type.MappedTypes;
  * @author Manni Wood
  */
 @MappedJdbcTypes(JdbcType.OTHER)
-@MappedTypes(Integer[].class)
-public class IntegerArrayTypeHandler extends BaseTypeHandler<Integer[]> {
+@MappedTypes(Long[].class)
+public class LongArrayTypeHandler extends BaseTypeHandler<Long[]> {
 
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i,
-            Integer[] parameter, JdbcType jdbcType) throws SQLException {
+            Long[] parameter, JdbcType jdbcType) throws SQLException {
         Connection c = ps.getConnection();
-        Array inArray = c.createArrayOf("int", parameter);
+        Array inArray = c.createArrayOf("bigint", parameter);
         ps.setArray(i, inArray);
     }
 
     @Override
-    public Integer[] getNullableResult(ResultSet rs, String columnName)
+    public Long[] getNullableResult(ResultSet rs, String columnName)
             throws SQLException {
         Array outputArray = rs.getArray(columnName);
         if (outputArray == null) {
             return null;
         }
-        return (Integer[])outputArray.getArray();
+        return (Long[])outputArray.getArray();
     }
 
     @Override
-    public Integer[] getNullableResult(ResultSet rs, int columnIndex)
+    public Long[] getNullableResult(ResultSet rs, int columnIndex)
             throws SQLException {
         Array outputArray = rs.getArray(columnIndex);
         if (outputArray == null) {
             return null;
         }
-        return (Integer[])outputArray.getArray();
+        return (Long[])outputArray.getArray();
     }
 
     @Override
-    public Integer[] getNullableResult(CallableStatement cs, int columnIndex)
+    public Long[] getNullableResult(CallableStatement cs, int columnIndex)
             throws SQLException {
         Array outputArray = cs.getArray(columnIndex);
         if (outputArray == null) {
             return null;
         }
-        return (Integer[])outputArray.getArray();
+        return (Long[])outputArray.getArray();
     }
 }
