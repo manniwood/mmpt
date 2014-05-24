@@ -33,7 +33,7 @@ import com.manniwood.mmpt.test.beans.LongArrayBean;
 @Test
 public class BigIntArrayTest extends TypeTest {
 
-    private static final String TABLE_CREATE_ID = "test.createLongArrayTestTable";
+    private static final String TABLE_CREATE_ID = "test.createBigIntArrayTestTable";
 
     public BigIntArrayTest() {
         super(TABLE_CREATE_ID);
@@ -46,11 +46,11 @@ public class BigIntArrayTest extends TypeTest {
         Long[] intArray = new Long[] { 1L, 2L, 3L };
         t.setLongArray(intArray);
         t.setName(testName);
-        session.insert("test.insertLongArray", t);
+        session.insert("test.insertBigIntArray", t);
         session.commit(true);
 
         LongArrayBean result;
-        result = session.selectOne("test.selectLongArray", t);
+        result = session.selectOne("test.selectBigIntArray", t);
         session.rollback(true);  // just a select; rollback
 
         Assert.assertTrue(Arrays.equals(intArray, result.getLongArray()), "Long arrays need to match.");
@@ -64,11 +64,11 @@ public class BigIntArrayTest extends TypeTest {
         Long[] intArray = new Long[] { 1L, null, 3L };
         t.setLongArray(intArray);
         t.setName(testName);
-        session.insert("test.insertLongArray", t);
+        session.insert("test.insertBigIntArray", t);
         session.commit(true);
 
         LongArrayBean result;
-        result = session.selectOne("test.selectLongArray", t);
+        result = session.selectOne("test.selectBigIntArray", t);
         session.rollback(true);  // just a select; rollback
 
         Assert.assertTrue(Arrays.equals(intArray, result.getLongArray()), "Long arrays need to match.");
@@ -82,11 +82,11 @@ public class BigIntArrayTest extends TypeTest {
         Long[] intArray = null;
         t.setLongArray(intArray);
         t.setName(testName);
-        session.insert("test.insertLongArray", t);
+        session.insert("test.insertBigIntArray", t);
         session.commit(true);
 
         LongArrayBean result;
-        result = session.selectOne("test.selectNullLongArray", t);
+        result = session.selectOne("test.selectNullBigIntArray", t);
         session.rollback(true);  // just a select; rollback
 
         Assert.assertNull(result.getLongArray(), "Long array must be null.");
