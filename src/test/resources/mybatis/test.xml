@@ -119,6 +119,45 @@
 
 
 
+  <!-- smallint_array col allowed to be null so we can test null -->
+  <insert id="createSmallIntArrayTestTable">
+    create temporary table smallint_array_test (
+        smallint_array  smallint[]      null,
+        name       text       not null)
+  </insert>
+
+  <insert id="insertSmallIntArray" parameterType="IntegerArrayBean">
+    insert into smallint_array_test (smallint_array, name)
+    values (#{integerArray,javaType=int[],jdbcType=OTHER,typeHandler=SmallIntArrayTypeHandler}, #{name})
+  </insert>
+
+  <resultMap id="selectSmallIntArrayResultMap" type="IntegerArrayBean">
+    <id     property="integerArray"  column="smallint_array"  typeHandler="SmallIntArrayTypeHandler" />
+    <result property="name"          column="name"     />
+  </resultMap>
+
+  <select id="selectSmallIntArray"
+          parameterType="IntegerArrayBean"
+          resultMap="selectSmallIntArrayResultMap">
+    select smallint_array,
+           name
+      from smallint_array_test
+     where smallint_array = #{integerArray,javaType=int[],jdbcType=OTHER,typeHandler=SmallIntArrayTypeHandler}
+       and name = #{name}
+  </select>
+
+  <select id="selectNullSmallIntArray"
+          parameterType="IntegerArrayBean"
+          resultMap="selectSmallIntArrayResultMap">
+    select smallint_array,
+           name
+      from smallint_array_test
+     where name = #{name}
+  </select>
+
+
+
+
   <!-- text_array col allowed to be null so we can test null -->
   <insert id="createTextArrayTestTable">
     create temporary table text_array_test (
