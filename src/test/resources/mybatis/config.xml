@@ -13,7 +13,7 @@
     <typeAlias alias="IntegerArrayTypeHandler" type="com.manniwood.mmpt.typehandlers.IntegerArrayTypeHandler" />
 
     <typeAlias alias="LongArrayBean"        type="com.manniwood.mmpt.test.beans.LongArrayBean" />
-    <typeAlias alias="LongArrayTypeHandler" type="com.manniwood.mmpt.typehandlers.LongArrayTypeHandler" />
+    <typeAlias alias="BigIntArrayTypeHandler" type="com.manniwood.mmpt.typehandlers.BigIntArrayTypeHandler" />
 
     <typeAlias alias="String[]"            type="[Ljava.lang.String;" />
     <typeAlias alias="StringArrayBean"        type="com.manniwood.mmpt.test.beans.StringArrayBean" />

@@ -40,7 +40,7 @@ import org.apache.ibatis.type.MappedTypes;
  */
 @MappedJdbcTypes(JdbcType.OTHER)
 @MappedTypes(Long[].class)
-public class LongArrayTypeHandler extends BaseTypeHandler<Long[]> {
+public class BigIntArrayTypeHandler extends BaseTypeHandler<Long[]> {
 
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i,

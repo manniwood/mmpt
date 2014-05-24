@@ -31,11 +31,11 @@ import org.testng.annotations.Test;
 import com.manniwood.mmpt.test.beans.LongArrayBean;
 
 @Test
-public class LongArrayTest extends TypeTest {
+public class BigIntArrayTest extends TypeTest {
 
     private static final String TABLE_CREATE_ID = "test.createLongArrayTestTable";
 
-    public LongArrayTest() {
+    public BigIntArrayTest() {
         super(TABLE_CREATE_ID);
     }
 
