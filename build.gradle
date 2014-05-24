@@ -39,14 +39,19 @@ artifacts {
     archives sourcesJar
 }
 
+task printBintraySettings << {
+    println "mwBintrayUser: $mwBintrayUser"
+    println "mwBintrayApiKey: $mwBintrayApiKey"
+}
+
 uploadArchives {
     repositories {
         mavenDeployer {
             // If you want to make a local mvn dir layout, use this next line:
             // repository(url: "file:///$buildDir/repo")
 
-            // This uploads to BinTray. You need need mwBintrayUser and
-            // mwBinTrayApiKey defined in ~/.gradle/gradle.properties
+            // This uploads to Bintray. You need need mwBintrayUser and
+            // mwBintrayApiKey defined in ~/.gradle/gradle.properties
             repository(url: "https://api.bintray.com/maven/manniwood/maven/mmpt") {
                 authentication(userName: mwBintrayUser, password: mwBintrayApiKey)
             }

@@ -88,7 +88,7 @@
   </insert>
 
   <insert id="insertLongArray" parameterType="LongArrayBean">
-    insert into bigint_array_test (bigint_array, name) values (#{longArray,javaType=int[],jdbcType=OTHER,typeHandler=LongArrayTypeHandler}, #{name})
+    insert into bigint_array_test (bigint_array, name) values (#{longArray,javaType=long[],jdbcType=OTHER,typeHandler=LongArrayTypeHandler}, #{name})
   </insert>
 
   <resultMap id="selectLongArrayResultMap" type="LongArrayBean">
@@ -102,7 +102,7 @@
     select bigint_array,
            name
       from bigint_array_test
-     where bigint_array = #{longArray,javaType=int[],jdbcType=OTHER,typeHandler=LongArrayTypeHandler}
+     where bigint_array = #{longArray,javaType=long[],jdbcType=OTHER,typeHandler=LongArrayTypeHandler}
        and name = #{name}
   </select>
 
@@ -112,6 +112,45 @@
     select bigint_array,
            name
       from bigint_array_test
+     where name = #{name}
+  </select>
+
+
+
+
+  <!-- text_array col allowed to be null so we can test null -->
+  <insert id="createStringArrayTestTable">
+    create temporary table text_array_test (
+        text_array  text[]      null,
+        name       text       not null)
+  </insert>
+
+  <insert id="insertStringArray" parameterType="StringArrayBean">
+    insert into text_array_test (text_array, name) 
+    values (#{stringArray,javaType=String[],jdbcType=OTHER,typeHandler=StringArrayTypeHandler}, #{name})
+  </insert>
+
+  <resultMap id="selectStringArrayResultMap" type="StringArrayBean">
+    <id     property="stringArray"  column="text_array"  typeHandler="StringArrayTypeHandler" />
+    <result property="name"          column="name"     />
+  </resultMap>
+
+  <select id="selectStringArray"
+          parameterType="StringArrayBean"
+          resultMap="selectStringArrayResultMap">
+    select text_array,
+           name
+      from text_array_test
+     where text_array = #{stringArray,javaType=String[],jdbcType=OTHER,typeHandler=StringArrayTypeHandler}
+       and name = #{name}
+  </select>
+
+  <select id="selectNullStringArray"
+          parameterType="StringArrayBean"
+          resultMap="selectStringArrayResultMap">
+    select text_array,
+           name
+      from text_array_test
      where name = #{name}
   </select>
 

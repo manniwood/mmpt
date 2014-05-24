@@ -5,8 +5,8 @@
 <configuration>
 
   <typeAliases>
-    <typeAlias alias="UUIDBean"        type="com.manniwood.mmpt.test.beans.UUIDBean" />
     <typeAlias alias="UUID"            type="java.util.UUID" />
+    <typeAlias alias="UUIDBean"        type="com.manniwood.mmpt.test.beans.UUIDBean" />
     <typeAlias alias="UUIDTypeHandler" type="com.manniwood.mmpt.typehandlers.UUIDTypeHandler" />
 
     <typeAlias alias="IntegerArrayBean"        type="com.manniwood.mmpt.test.beans.IntegerArrayBean" />
@@ -14,6 +14,10 @@
 
     <typeAlias alias="LongArrayBean"        type="com.manniwood.mmpt.test.beans.LongArrayBean" />
     <typeAlias alias="LongArrayTypeHandler" type="com.manniwood.mmpt.typehandlers.LongArrayTypeHandler" />
+
+    <typeAlias alias="String[]"            type="[Ljava.lang.String;" />
+    <typeAlias alias="StringArrayBean"        type="com.manniwood.mmpt.test.beans.StringArrayBean" />
+    <typeAlias alias="StringArrayTypeHandler" type="com.manniwood.mmpt.typehandlers.StringArrayTypeHandler" />
   </typeAliases>
 
   <typeHandlers>
