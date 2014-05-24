@@ -8,9 +8,6 @@ As we all know, PostgreSQL has a rich, extensible type system.
 MyBatis, much to its credit, can have new type handlers plugged
 into it.
 
-As of this writing (version 1.1), MMPT has a UUID
-type handler, and an IntegerArray type handler.
-
 PostgreSQL allows storing any type as an array, so as I grow
 this library, I will be adding type handlers for all of the
 array types.
@@ -32,7 +29,7 @@ repositories {
 and then your dependencies section will have this entry:
 ```
 dependencies {
-    compile 'com.manniwood:mmpt:1.1'
+    compile 'com.manniwood:mmpt:2.0.0'
     // other dependencies here, obviously
 }
 ```
