@@ -120,35 +120,35 @@
 
 
   <!-- text_array col allowed to be null so we can test null -->
-  <insert id="createStringArrayTestTable">
+  <insert id="createTextArrayTestTable">
     create temporary table text_array_test (
         text_array  text[]      null,
         name       text       not null)
   </insert>
 
-  <insert id="insertStringArray" parameterType="StringArrayBean">
+  <insert id="insertTextArray" parameterType="StringArrayBean">
     insert into text_array_test (text_array, name) 
-    values (#{stringArray,javaType=String[],jdbcType=OTHER,typeHandler=StringArrayTypeHandler}, #{name})
+    values (#{stringArray,javaType=String[],jdbcType=OTHER,typeHandler=TextArrayTypeHandler}, #{name})
   </insert>
 
-  <resultMap id="selectStringArrayResultMap" type="StringArrayBean">
-    <id     property="stringArray"  column="text_array"  typeHandler="StringArrayTypeHandler" />
+  <resultMap id="selectTextArrayResultMap" type="StringArrayBean">
+    <id     property="stringArray"  column="text_array"  typeHandler="TextArrayTypeHandler" />
     <result property="name"          column="name"     />
   </resultMap>
 
-  <select id="selectStringArray"
+  <select id="selectTextArray"
           parameterType="StringArrayBean"
-          resultMap="selectStringArrayResultMap">
+          resultMap="selectTextArrayResultMap">
     select text_array,
            name
       from text_array_test
-     where text_array = #{stringArray,javaType=String[],jdbcType=OTHER,typeHandler=StringArrayTypeHandler}
+     where text_array = #{stringArray,javaType=String[],jdbcType=OTHER,typeHandler=TextArrayTypeHandler}
        and name = #{name}
   </select>
 
-  <select id="selectNullStringArray"
+  <select id="selectNullTextArray"
           parameterType="StringArrayBean"
-          resultMap="selectStringArrayResultMap">
+          resultMap="selectTextArrayResultMap">
     select text_array,
            name
       from text_array_test

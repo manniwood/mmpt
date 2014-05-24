@@ -27,6 +27,7 @@ import org.testng.annotations.Factory;
 
 import com.manniwood.mmpt.test.BigIntArrayTest;
 import com.manniwood.mmpt.test.IntegerArrayTest;
+import com.manniwood.mmpt.test.TextArrayTest;
 import com.manniwood.mmpt.test.UUIDTest;
 
 public class TestNGTestFactory {
@@ -35,7 +36,8 @@ public class TestNGTestFactory {
         return new Object[] {
                 new UUIDTest(),
                 new IntegerArrayTest(),
-                new BigIntArrayTest()
+                new BigIntArrayTest(),
+                new TextArrayTest()
         };
     }
 

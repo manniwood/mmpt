@@ -31,11 +31,11 @@ import org.testng.annotations.Test;
 import com.manniwood.mmpt.test.beans.StringArrayBean;
 
 @Test
-public class StringArrayTest extends TypeTest {
+public class TextArrayTest extends TypeTest {
 
-    private static final String TABLE_CREATE_ID = "test.createStringArrayTestTable";
+    private static final String TABLE_CREATE_ID = "test.createTextArrayTestTable";
 
-    public StringArrayTest() {
+    public TextArrayTest() {
         super(TABLE_CREATE_ID);
     }
 
@@ -46,11 +46,11 @@ public class StringArrayTest extends TypeTest {
         String[] intArray = new String[] { "one", "two", "three" };
         t.setStringArray(intArray);
         t.setName(testName);
-        session.insert("test.insertStringArray", t);
+        session.insert("test.insertTextArray", t);
         session.commit(true);
 
         StringArrayBean result;
-        result = session.selectOne("test.selectStringArray", t);
+        result = session.selectOne("test.selectTextArray", t);
         session.rollback(true);  // just a select; rollback
 
         Assert.assertTrue(Arrays.equals(intArray, result.getStringArray()), "String arrays need to match.");
@@ -64,11 +64,11 @@ public class StringArrayTest extends TypeTest {
         String[] intArray = new String[] { "one", null, "three" };
         t.setStringArray(intArray);
         t.setName(testName);
-        session.insert("test.insertStringArray", t);
+        session.insert("test.insertTextArray", t);
         session.commit(true);
 
         StringArrayBean result;
-        result = session.selectOne("test.selectStringArray", t);
+        result = session.selectOne("test.selectTextArray", t);
         session.rollback(true);  // just a select; rollback
 
         Assert.assertTrue(Arrays.equals(intArray, result.getStringArray()), "String arrays need to match.");
@@ -82,11 +82,11 @@ public class StringArrayTest extends TypeTest {
         String[] intArray = null;
         t.setStringArray(intArray);
         t.setName(testName);
-        session.insert("test.insertStringArray", t);
+        session.insert("test.insertTextArray", t);
         session.commit(true);
 
         StringArrayBean result;
-        result = session.selectOne("test.selectNullStringArray", t);
+        result = session.selectOne("test.selectNullTextArray", t);
         session.rollback(true);  // just a select; rollback
 
         Assert.assertNull(result.getStringArray(), "String array must be null.");

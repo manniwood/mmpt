@@ -17,7 +17,7 @@
 
     <typeAlias alias="String[]"            type="[Ljava.lang.String;" />
     <typeAlias alias="StringArrayBean"        type="com.manniwood.mmpt.test.beans.StringArrayBean" />
-    <typeAlias alias="StringArrayTypeHandler" type="com.manniwood.mmpt.typehandlers.StringArrayTypeHandler" />
+    <typeAlias alias="TextArrayTypeHandler" type="com.manniwood.mmpt.typehandlers.TextArrayTypeHandler" />
   </typeAliases>
 
   <typeHandlers>
