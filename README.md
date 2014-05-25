@@ -263,3 +263,8 @@ integer[]       |[Ljava.lang.Integer;|int[]                 |               |OTH
 bigint[]        |[Ljava.lang.Long;   |long[]                |               |OTHER    |BigIntArrayTypeHandler
 text[]          |[Ljava.lang.String; |                      |String[]       |OTHER    |TextArrayTypeHandler
 
+Note that it might have been more ideal (not to mention more expected!) to have the SmallIntArrayTypeHandler
+take/receive an array of Short rather than an array of Integer. However, the underlying PostgreSQL JDBC
+driver actuall returns an array of Integer, not an array of Short! So, this concession had to be made
+in the type handler.
+
