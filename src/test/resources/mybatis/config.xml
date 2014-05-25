@@ -35,6 +35,7 @@
         <property name="username"                         value="test"/>
         <property name="password"                         value="test"/>
         <property name="defaultTransactionIsolationLevel" value="2"/>  <!-- 2 == TRANSACTION_READ_COMMITTED -->
+        <property name="driver.ApplicationName"           value="Test Application"/>
       </dataSource>
     </environment>
   </environments>
