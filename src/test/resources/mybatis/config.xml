@@ -15,6 +15,7 @@
     <typeAlias alias="LongArrayBean"        type="com.manniwood.mmpt.test.beans.LongArrayBean" />
     <typeAlias alias="BigIntArrayTypeHandler" type="com.manniwood.mmpt.typehandlers.BigIntArrayTypeHandler" />
     
+    <typeAlias alias="ShortArrayBean"        type="com.manniwood.mmpt.test.beans.ShortArrayBean" />
     <typeAlias alias="SmallIntArrayTypeHandler" type="com.manniwood.mmpt.typehandlers.SmallIntArrayTypeHandler" />
 
     <typeAlias alias="String[]"            type="[Ljava.lang.String;" />

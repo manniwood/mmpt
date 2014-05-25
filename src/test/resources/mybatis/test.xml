@@ -124,31 +124,31 @@
   <insert id="createSmallIntArrayTestTable">
     create temporary table smallint_array_test (
         smallint_array  smallint[]      null,
-        name       text       not null)
+        name            text        not null)
   </insert>
 
-  <insert id="insertSmallIntArray" parameterType="IntegerArrayBean">
+  <insert id="insertSmallIntArray" parameterType="ShortArrayBean">
     insert into smallint_array_test (smallint_array, name)
-    values (#{integerArray,javaType=int[],jdbcType=OTHER,typeHandler=SmallIntArrayTypeHandler}, #{name})
+    values (#{shortArray,javaType=short[],jdbcType=OTHER,typeHandler=SmallIntArrayTypeHandler}, #{name})
   </insert>
 
-  <resultMap id="selectSmallIntArrayResultMap" type="IntegerArrayBean">
-    <id     property="integerArray"  column="smallint_array"  typeHandler="SmallIntArrayTypeHandler" />
+  <resultMap id="selectSmallIntArrayResultMap" type="ShortArrayBean">
+    <id     property="shortArray"  column="smallint_array"  typeHandler="SmallIntArrayTypeHandler" />
     <result property="name"          column="name"     />
   </resultMap>
 
   <select id="selectSmallIntArray"
-          parameterType="IntegerArrayBean"
+          parameterType="ShortArrayBean"
           resultMap="selectSmallIntArrayResultMap">
     select smallint_array,
            name
       from smallint_array_test
-     where smallint_array = #{integerArray,javaType=int[],jdbcType=OTHER,typeHandler=SmallIntArrayTypeHandler}
+     where smallint_array = #{shortArray,javaType=short[],jdbcType=OTHER,typeHandler=SmallIntArrayTypeHandler}
        and name = #{name}
   </select>
 
   <select id="selectNullSmallIntArray"
-          parameterType="IntegerArrayBean"
+          parameterType="ShortArrayBean"
           resultMap="selectSmallIntArrayResultMap">
     select smallint_array,
            name

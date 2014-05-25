@@ -39,44 +39,44 @@ import org.apache.ibatis.type.MappedTypes;
  * @author Manni Wood
  */
 @MappedJdbcTypes(JdbcType.OTHER)
-@MappedTypes(Integer[].class)
-public class SmallIntArrayTypeHandler extends BaseTypeHandler<Integer[]> {
+@MappedTypes(Short[].class)
+public class SmallIntArrayTypeHandler extends BaseTypeHandler<Short[]> {
 
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i,
-            Integer[] parameter, JdbcType jdbcType) throws SQLException {
+            Short[] parameter, JdbcType jdbcType) throws SQLException {
         Connection c = ps.getConnection();
         Array inArray = c.createArrayOf("smallint", parameter);
         ps.setArray(i, inArray);
     }
 
     @Override
-    public Integer[] getNullableResult(ResultSet rs, String columnName)
+    public Short[] getNullableResult(ResultSet rs, String columnName)
             throws SQLException {
         Array outputArray = rs.getArray(columnName);
         if (outputArray == null) {
             return null;
         }
-        return (Integer[])outputArray.getArray();
+        return (Short[])outputArray.getArray();
     }
 
     @Override
-    public Integer[] getNullableResult(ResultSet rs, int columnIndex)
+    public Short[] getNullableResult(ResultSet rs, int columnIndex)
             throws SQLException {
         Array outputArray = rs.getArray(columnIndex);
         if (outputArray == null) {
             return null;
         }
-        return (Integer[])outputArray.getArray();
+        return (Short[])outputArray.getArray();
     }
 
     @Override
-    public Integer[] getNullableResult(CallableStatement cs, int columnIndex)
+    public Short[] getNullableResult(CallableStatement cs, int columnIndex)
             throws SQLException {
         Array outputArray = cs.getArray(columnIndex);
         if (outputArray == null) {
             return null;
         }
-        return (Integer[])outputArray.getArray();
+        return (Short[])outputArray.getArray();
     }
 }

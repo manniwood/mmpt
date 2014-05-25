@@ -25,95 +25,72 @@ package com.manniwood.mmpt.test;
 
 import java.util.Arrays;
 
-import org.apache.ibatis.exceptions.PersistenceException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.manniwood.mmpt.test.beans.IntegerArrayBean;
+import com.manniwood.mmpt.test.beans.ShortArrayBean;
 
 @Test
 public class SmallIntArrayTest extends TypeTest {
 
     private static final String TABLE_CREATE_ID = "test.createSmallIntArrayTestTable";
-    private static Logger log = LoggerFactory.getLogger(IntegerArrayTest.class);
+    // private static Logger log = LoggerFactory.getLogger(SmallIntArrayTest.class);
 
     public SmallIntArrayTest() {
         super(TABLE_CREATE_ID);
     }
 
     @Test
-    public void testIntegerArray() {
+    public void testShortArray() {
         String testName = "basic test";
-        IntegerArrayBean t = new IntegerArrayBean();
-        Integer[] intArray = new Integer[] { 1, 2, 3 };
-        t.setIntegerArray(intArray);
+        ShortArrayBean t = new ShortArrayBean();
+        Short[] intArray = new Short[] { 1, 2, 3 };
+        t.setShortArray(intArray);
         t.setName(testName);
         session.insert("test.insertSmallIntArray", t);
         session.commit(true);
 
-        IntegerArrayBean result;
+        ShortArrayBean result;
         result = session.selectOne("test.selectSmallIntArray", t);
         session.rollback(true);  // just a select; rollback
 
-        Assert.assertTrue(Arrays.equals(intArray, result.getIntegerArray()), "Integer arrays need to match.");
+        Assert.assertTrue(Arrays.equals(intArray, result.getShortArray()), "Short arrays need to match.");
         Assert.assertEquals(testName, result.getName(), "Test name needs to be " + testName);
     }
 
     @Test
-    public void testIntegerArrayWithEmbeddedNulls() {
+    public void testShortArrayWithEmbeddedNulls() {
         String testName = "embedded null test";
-        IntegerArrayBean t = new IntegerArrayBean();
-        Integer[] intArray = new Integer[] { 1, null, 3 };
-        t.setIntegerArray(intArray);
+        ShortArrayBean t = new ShortArrayBean();
+        Short[] intArray = new Short[] { 1, null, 3 };
+        t.setShortArray(intArray);
         t.setName(testName);
         session.insert("test.insertSmallIntArray", t);
         session.commit(true);
 
-        IntegerArrayBean result;
+        ShortArrayBean result;
         result = session.selectOne("test.selectSmallIntArray", t);
         session.rollback(true);  // just a select; rollback
 
-        Assert.assertTrue(Arrays.equals(intArray, result.getIntegerArray()), "Integer arrays need to match.");
+        Assert.assertTrue(Arrays.equals(intArray, result.getShortArray()), "Short arrays need to match.");
         Assert.assertEquals(testName, result.getName(), "Test name needs to be " + testName);
     }
 
     @Test
-    public void testIntegerArrayWithTooLargeValue() {
-        String testName = "too large value test";
-        boolean exceptionWasCaught = false;
-        IntegerArrayBean t = new IntegerArrayBean();
-        Integer[] intArray = new Integer[] { 1, Integer.MAX_VALUE, 3 };
-        t.setIntegerArray(intArray);
-        t.setName(testName);
-        try {
-            session.insert("test.insertSmallIntArray", t);
-        } catch (PersistenceException e) {
-            log.info("caught expected exception: ", e);
-            exceptionWasCaught = true;
-        } finally {
-            session.rollback(true);
-        }
-
-        Assert.assertTrue(exceptionWasCaught, "Integers larger than PostgreSQL smallint need to throw exeption.");
-    }
-
-    @Test
-    public void testNullIntegerArray() {
+    public void testNullShortArray() {
         String testName = "null test";
-        IntegerArrayBean t = new IntegerArrayBean();
-        Integer[] intArray = null;
-        t.setIntegerArray(intArray);
+        ShortArrayBean t = new ShortArrayBean();
+        Short[] intArray = null;
+        t.setShortArray(intArray);
         t.setName(testName);
         session.insert("test.insertSmallIntArray", t);
         session.commit(true);
 
-        IntegerArrayBean result;
+        ShortArrayBean result;
         result = session.selectOne("test.selectNullSmallIntArray", t);
         session.rollback(true);  // just a select; rollback
 
-        Assert.assertNull(result.getIntegerArray(), "Integer array must be null.");
+        Assert.assertNull(result.getShortArray(), "Short array must be null.");
         Assert.assertEquals(testName, result.getName(), "Test name needs to be " + testName);
     }
 }
