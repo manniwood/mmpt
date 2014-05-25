@@ -8,13 +8,12 @@ As we all know, PostgreSQL has a rich, extensible type system.
 MyBatis, much to its credit, can have new type handlers plugged
 into it.
 
-PostgreSQL allows storing any type as an array, so as I grow
-this library, I will be adding type handlers for all of the
-array types.
+As I grow this library, I will provide type handlers for
+many PostgreSQL types, especially PostgreSQL's array types.
 
 ## Installation
 
-For Gradle users, your "repositories" section will have
+For Gradle users, your `repositories` section will have
 the Manni Wood repository added to it:
 
 ```Groovy
@@ -26,7 +25,7 @@ repositories {
     }
 }
 ```
-and then your dependencies section will have this entry:
+and then your dependencies section will have this entry for the MMPT library:
 ```Groovy
 dependencies {
     compile 'com.manniwood:mmpt:2.0.0'
@@ -36,16 +35,35 @@ dependencies {
 
 ## Use
 
-In the typeAliases section of your MyBatis configuration file,
-put the following type aliases (this part is optional, but
-it will save you typing later:
+### Configuration
+
+In your main MyBatis configuration file, use type aliases to make your life easier.
+
+Mybatis comes with a number of built-in type aliases that are documented 
+[on their web site](http://mybatis.github.io/mybatis-3/configuration.html#typeAliases).
+
+In addition to those type aliases, here are some other ones you might want to
+put in your main configuration file:
 
 ```XML
 <typeAliases>
-    <typeAlias alias="UUIDTypeHandler" type="com.manniwood.mmpt.typehandlers.UUIDTypeHandler" />
-    <typeAlias alias="IntegerArrayTypeHandler" type="com.manniwood.mmpt.typehandlers.IntegerArrayTypeHandler" />
+    <typeAlias alias="UUID"            type="java.util.UUID" />
+    <typeAlias alias="String[]"        type="[Ljava.lang.String;" />
+    <!-- ... other type aliases ... -->
+```
+Also, the type handlers in MMPT have the usual long Java names, so giving those
+type aliases will also be convenient when you refer to them later:
+
+```XML
+    <!-- ... other type aliases ... -->
+    <typeAlias alias="UUIDTypeHandler"           type="com.manniwood.mmpt.typehandlers.UUIDTypeHandler" />
+    <typeAlias alias="IntegerArrayTypeHandler"   type="com.manniwood.mmpt.typehandlers.IntegerArrayTypeHandler" />
+    <typeAlias alias="BigIntArrayTypeHandler"    type="com.manniwood.mmpt.typehandlers.BigIntArrayTypeHandler" />
+    <typeAlias alias="SmallIntArrayTypeHandler"  type="com.manniwood.mmpt.typehandlers.SmallIntArrayTypeHandler" />
+    <typeAlias alias="TextArrayTypeHandler"      type="com.manniwood.mmpt.typehandlers.TextArrayTypeHandler" />
 </typeAliases>
 ```
+You also have to let MyBatis know about all of our new type hanlders.
 
 In the typeHandlers section of your MyBatis configuration file,
 put the following line:
@@ -56,9 +74,22 @@ put the following line:
  </typeHandlers>
 ```
 
-Let's say you have these beans that you would like mapped:
+### UUID Example
 
-A bean with a UUID attribute:
+If you are using PostgreSQL's 
+[UUID type](http://www.postgresql.org/docs/9.3/static/datatype-uuid.html),
+MMPT's UUID type handler will come in handy.
+
+Let's say you have a table with this definition:
+
+```SQL
+create temporary table uuid_beans (
+     test_id  uuid  not null,
+     name     text  not null)
+```
+
+Let's also say that you have a Java bean with attributes (including a UUID attribute)
+matching the columns of your `uuid_beans` table
 
 ```Java
 package com.manniwood.mmpt.test.beans;
@@ -92,26 +123,89 @@ public class UUIDBean {
 }
 ```
 
-A bean with an integer array attribute:
+Here's how you would mark up your SQL mapper file to insert UUIDBeans
+into the `uuid_beans` table:
+
+```XML
+  <insert id="insertUUID" parameterType="UUIDBean">
+    insert into uuid_beans (
+            test_id, 
+            name) 
+    values (#{testId,javaType=UUID,jdbcType=OTHER,typeHandler=UUIDTypeHandler}, 
+            #{name})
+  </insert>
+```
+Note how the `test_id` column, which is of type UUID, needs more detail than the `name` column,
+which MyBatis already has a built-in mapper for. In particular, note an unfortunate feature
+of the underlying JDBC standard that maps the UUID type (and all other esoteric types) to the JDBC 
+type OTHER, rather than a specific JDBC type. 
+
+The above MyBatis insert can be used like so:
+
+```Java
+UUIDBean t = new UUIDBean();
+t.setTestId(UUID.fromString("37a82ee2-114c-4044-ba90-c073bf6d7830"));
+t.setName("regular test");
+session.insert("test.insertUUID", t);
+```
+
+Unlike the insert statement, which was able to use
+inline type mapper information, the select needs an explicit result map to
+tell MyBatis which type handler to use for the returned `test_id` column.
+
+```XML
+  <resultMap id="selectUUIDResultMap" type="UUIDBean">
+    <id     property="testId"  column="test_id"  typeHandler="UUIDTypeHandler" />
+    <result property="name"    column="name"     />
+  </resultMap>
+
+  <select id="selectUUID"
+          parameterType="String"
+          resultMap="selectUUIDResultMap">
+    select test_id,
+           name
+      from uuid_test
+     where name = #{string}
+  </select>
+```
+
+The above MyBatis select can be used like so:
+
+```Java
+UUIDBean result = session.selectOne("test.selectUUID", "regular test");
+
+```
+
+### String Array Example
+
+Let's say you have the following table definition:
+
+```SQL
+create temporary table string_array_beans (
+    text_array  text[]      null,
+    name        text        not null)
+```
+
+and the following Java bean:
 
 ```Java
 package com.manniwood.mmpt.test.beans;
 
-public class IntegerArrayBean {
+public class StringArrayBean {
 
-    private Integer[] integerArray;
+    private String[] stringArray;
     private String name;
 
-    public IntegerArrayBean() {
+    public StringArrayBean() {
         // null constructor keeps mybatis happy
     }
 
-    public Integer[] getIntegerArray() {
-        return integerArray;
+    public String[] getStringArray() {
+        return stringArray;
     }
 
-    public void setIntegerArray(Integer[] integerArray) {
-        this.integerArray = integerArray;
+    public void setStringArray(String[] stringArray) {
+        this.stringArray = stringArray;
     }
 
     public String getName() {
@@ -124,91 +218,48 @@ public class IntegerArrayBean {
 }
 ```
 
-You can set up these aliases in your MyBatis config file:
+Then to do an insert into this table, you would use the following mapping:
 
 ```XML
-  <typeAliases>
-    <typeAlias alias="UUIDBean"        type="com.manniwood.mmpt.test.beans.UUIDBean" />
-    <typeAlias alias="UUID"            type="java.util.UUID" />
-    <typeAlias alias="UUIDTypeHandler" type="com.manniwood.mmpt.typehandlers.UUIDTypeHandler" />
-
-    <typeAlias alias="IntegerArrayBean"        type="com.manniwood.mmpt.test.beans.IntegerArrayBean" />
-    <typeAlias alias="IntegerArrayTypeHandler" type="com.manniwood.mmpt.typehandlers.IntegerArrayTypeHandler" />
-  </typeAliases>
+  <insert id="insertTextArray" parameterType="StringArrayBean">
+    insert into string_array_beans (
+        text_array, 
+        name) 
+    values (
+        #{stringArray,javaType=String[],jdbcType=OTHER,typeHandler=TextArrayTypeHandler}, 
+        #{name})
+  </insert>
 ```
 
-In your mappers file, you can do things like this:
+Note how we use the type alias `String[]` that we definied up above, instead of having to
+use the uglier, longer `[Ljava.lang.String;`. (Note, too, how the `jdbcType` is `OTHER`. As usual,
+for non-standard JDBC SQL types, the type is always `OTHER`.)
+
+To do a select from this table, the mapping would look like this:
 
 ```XML
-  <insert id="createUUIDTestTable">
-    create temporary table uuid_test (
-         test_id  uuid      null,
-         name     text  not null)
-  </insert>
-
-  <insert id="insertUUID" parameterType="UUIDBean">
-    insert into uuid_test (test_id, name) values (#{testId,javaType=UUID,jdbcType=OTHER,typeHandler=UUIDTypeHandler}, #{name})
-  </insert>
-
-  <resultMap id="selectUUIDResultMap" type="UUIDBean">
-    <id     property="testId"  column="test_id"  typeHandler="UUIDTypeHandler" />
-    <result property="name"    column="name"     />
-  </resultMap>
-
-  <select id="selectUUID"
-          parameterType="UUIDBean"
-          resultMap="selectUUIDResultMap">
-    select test_id,
-           name
-      from uuid_test
-     where test_id = #{testId,javaType=UUID,jdbcType=OTHER,typeHandler=UUIDTypeHandler}
-       and name = #{name}
-  </select>
-
-  <select id="selectNullUUID"
-          parameterType="UUIDBean"
-          resultMap="selectUUIDResultMap">
-    select test_id,
-           name
-      from uuid_test
-     where name = #{name}
-  </select>
-
-  <insert id="createIntArrayTestTable">
-    create temporary table int_array_test (
-        int_array  integer[]      null,
-        name       text       not null)
-  </insert>
-
-  <insert id="insertIntArray" parameterType="IntegerArrayBean">
-    insert into int_array_test (int_array, name) values (#{integerArray,javaType=int[],jdbcType=OTHER,typeHandler=IntegerArrayTypeHandler}, #{name})
-  </insert>
-
-  <resultMap id="selectIntArrayResultMap" type="IntegerArrayBean">
-    <id     property="integerArray"  column="int_array"  typeHandler="IntegerArrayTypeHandler" />
+  <resultMap id="selectTextArrayResultMap" type="StringArrayBean">
+    <id     property="stringArray"   column="text_array"  typeHandler="TextArrayTypeHandler" />
     <result property="name"          column="name"     />
   </resultMap>
 
-  <select id="selectIntArray"
-          parameterType="IntegerArrayBean"
-          resultMap="selectIntArrayResultMap">
-    select int_array,
+  <select id="selectTextArray"
+          parameterType="String"
+          resultMap="selectTextArrayResultMap">
+    select text_array,
            name
-      from int_array_test
-     where int_array = #{integerArray,javaType=int[],jdbcType=OTHER,typeHandler=IntegerArrayTypeHandler}
-       and name = #{name}
-  </select>
-
-  <select id="selectNullIntArray"
-          parameterType="IntegerArrayBean"
-          resultMap="selectIntArrayResultMap">
-    select int_array,
-           name
-      from int_array_test
-     where name = #{name}
+      from string_array_beans
+     where name = #{string}
   </select>
 ```
 
-Yes, it's a little wordy, but it works great.
+The full list of mappings available in MMPT are:
 
+Java Type          |Suggested Alias|JDBC Type|MMPT Type Handler
+-------------------|---------------|---------|-----------------
+java.util.UUID     |UUID           |OTHER    |com.manniwood.mmpt.typehandlers.UUIDTypeHandler
+int[]              |               |OTHER    |com.manniwood.mmpt.typehandlers.IntegerArrayTypeHandler
+long[]             |               |OTHER    |com.manniwood.mmpt.typehandlers.BigIntArrayTypeHandler
+int[]              |               |OTHER    |com.manniwood.mmpt.typehandlers.SmallIntArrayTypeHandler
+[Ljava.lang.String;|String[]       |OTHER    |com.manniwood.mmpt.typehandlers.TextArrayTypeHandler
 
