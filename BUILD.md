@@ -4,12 +4,12 @@ You will need Gradle installed to build the jar file from source.
 
 Once gradle is installed, all you will need to do is:
 
-```
+```Shell
 ./gradlew jar
 
 To create the maven artifacts:
 
-```
+```Shell
 ./gradlew uploadArchives
 ```
 which will upload them up to BinTray.

@@ -1,4 +1,4 @@
-# Manni's MyBatis PostgreSQL Types
+# MMPT: Manni's MyBatis PostgreSQL Types
 
 If you are using MyBatis with PostgreSQL, here are some
 PostgreSQL-specific type mappers you can use.
@@ -17,7 +17,7 @@ array types.
 For Gradle users, your "repositories" section will have
 the Manni Wood repository added to it:
 
-```
+```Groovy
 repositories {
     mavenCentral()
     maven {
@@ -27,7 +27,7 @@ repositories {
 }
 ```
 and then your dependencies section will have this entry:
-```
+```Groovy
 dependencies {
     compile 'com.manniwood:mmpt:2.0.0'
     // other dependencies here, obviously
@@ -40,7 +40,7 @@ In the typeAliases section of your MyBatis configuration file,
 put the following type aliases (this part is optional, but
 it will save you typing later:
 
-```
+```XML
 <typeAliases>
     <typeAlias alias="UUIDTypeHandler" type="com.manniwood.mmpt.typehandlers.UUIDTypeHandler" />
     <typeAlias alias="IntegerArrayTypeHandler" type="com.manniwood.mmpt.typehandlers.IntegerArrayTypeHandler" />
@@ -50,7 +50,7 @@ it will save you typing later:
 In the typeHandlers section of your MyBatis configuration file,
 put the following line:
 
-```
+```XML
 <typeHandlers>
     <package name="com.manniwood.mmpt.typehandlers"/>
  </typeHandlers>
@@ -60,7 +60,7 @@ Let's say you have these beans that you would like mapped:
 
 A bean with a UUID attribute:
 
-```
+```Java
 package com.manniwood.mmpt.test.beans;
 
 import java.util.UUID;
@@ -94,7 +94,7 @@ public class UUIDBean {
 
 A bean with an integer array attribute:
 
-```
+```Java
 package com.manniwood.mmpt.test.beans;
 
 public class IntegerArrayBean {
@@ -126,7 +126,7 @@ public class IntegerArrayBean {
 
 You can set up these aliases in your MyBatis config file:
 
-```
+```XML
   <typeAliases>
     <typeAlias alias="UUIDBean"        type="com.manniwood.mmpt.test.beans.UUIDBean" />
     <typeAlias alias="UUID"            type="java.util.UUID" />
@@ -139,7 +139,7 @@ You can set up these aliases in your MyBatis config file:
 
 In your mappers file, you can do things like this:
 
-```
+```XML
   <insert id="createUUIDTestTable">
     create temporary table uuid_test (
          test_id  uuid      null,
