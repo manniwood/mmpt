@@ -255,11 +255,11 @@ To do a select from this table, the mapping would look like this:
 
 The full list of mappings available in MMPT are:
 
-Java Type          |Suggested Alias|JDBC Type|MMPT Type Handler
--------------------|---------------|---------|-----------------
-java.util.UUID     |UUID           |OTHER    |com.manniwood.mmpt.typehandlers.UUIDTypeHandler
-int[]              |               |OTHER    |com.manniwood.mmpt.typehandlers.IntegerArrayTypeHandler
-long[]             |               |OTHER    |com.manniwood.mmpt.typehandlers.BigIntArrayTypeHandler
-int[]              |               |OTHER    |com.manniwood.mmpt.typehandlers.SmallIntArrayTypeHandler
-[Ljava.lang.String;|String[]       |OTHER    |com.manniwood.mmpt.typehandlers.TextArrayTypeHandler
+PostgreSQL Type |Java Type           |MyBatis Built-In Alias|Suggested Alias|JDBC Type|MMPT Type Handler (beginning with com.manniwood.mmpt.typehandlers.)
+----------------|--------------------|----------------------|---------------|---------|-----------------
+uuid            |java.util.UUID      |                      |UUID           |OTHER    |UUIDTypeHandler
+smallint[]      |[Ljava.lang.Integer;|int[]                 |               |OTHER    |SmallIntArrayTypeHandler
+integer[]       |[Ljava.lang.Integer;|int[]                 |               |OTHER    |IntegerArrayTypeHandler
+bigint[]        |[Ljava.lang.Long;   |long[]                |               |OTHER    |BigIntArrayTypeHandler
+text[]          |[Ljava.lang.String; |                      |String[]       |OTHER    |TextArrayTypeHandler
 
