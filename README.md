@@ -260,7 +260,7 @@ To do a select from this table, the mapping would look like this:
 
 The full list of mappings available in MMPT are:
 
-PostgreSQL Type |Java Type            |MyBatis Built-In Alias|Suggested Alias|JDBC Type|MMPT Type Handler (beginning with com.manniwood.mmpt.typehandlers.)
+PostgreSQL Type |Java Type            |MyBatis Built-In Alias|Suggested Alias|JDBC Type|MMPT Type Handler (in com.manniwood.mmpt.typehandlers.)
 ----------------|---------------------|----------------------|---------------|---------|-----------------
 uuid            |java.util.UUID       |                      |UUID           |OTHER    |UUIDTypeHandler
 smallint[]      |[Ljava.lang.Integer; |int[]                 |               |OTHER    |SmallIntArrayTypeHandler
@@ -271,6 +271,5 @@ boolean[]       |[Ljava.lang.Boolean; |boolean[]             |               |OT
 
 Note that it might have been more ideal (not to mention more expected!) to have the SmallIntArrayTypeHandler
 take/receive an array of Short rather than an array of Integer. However, the underlying PostgreSQL JDBC
-driver actuall returns an array of Integer, not an array of Short! So, this concession had to be made
+driver actually returns an array of Integer, not an array of Short! So, this concession had to be made
 in the type handler.
-
