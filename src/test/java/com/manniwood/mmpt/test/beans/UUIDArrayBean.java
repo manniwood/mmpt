@@ -21,30 +21,32 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-package com.manniwood.mmpt.test.factory;
+package com.manniwood.mmpt.test.beans;
 
-import org.testng.annotations.Factory;
+import java.util.UUID;
 
-import com.manniwood.mmpt.test.BigIntArrayTest;
-import com.manniwood.mmpt.test.BooleanArrayTest;
-import com.manniwood.mmpt.test.IntegerArrayTest;
-import com.manniwood.mmpt.test.SmallIntArrayTest;
-import com.manniwood.mmpt.test.TextArrayTest;
-import com.manniwood.mmpt.test.UUIDArrayTest;
-import com.manniwood.mmpt.test.UUIDTest;
+public class UUIDArrayBean {
 
-public class TestNGTestFactory {
-    @Factory
-    public Object[] allTests() {
-        return new Object[] {
-                new UUIDTest(),
-                new IntegerArrayTest(),
-                new BigIntArrayTest(),
-                new SmallIntArrayTest(),
-                new TextArrayTest(),
-                new BooleanArrayTest(),
-                new UUIDArrayTest()
-        };
+    private UUID[] uuidArray;
+    private String name;
+
+    public UUIDArrayBean() {
+        // null constructor keeps mybatis happy
     }
 
+    public UUID[] getUUIDArray() {
+        return uuidArray;
+    }
+
+    public void setUUIDArray(UUID[] uuidArray) {
+        this.uuidArray = uuidArray;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

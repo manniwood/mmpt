@@ -23,6 +23,10 @@
     <typeAlias alias="String[]"            type="[Ljava.lang.String;" />
     <typeAlias alias="StringArrayBean"        type="com.manniwood.mmpt.test.beans.StringArrayBean" />
     <typeAlias alias="TextArrayTypeHandler" type="com.manniwood.mmpt.typehandlers.TextArrayTypeHandler" />
+
+    <typeAlias alias="UUID[]"               type="[Ljava.util.UUID;" />
+    <typeAlias alias="UUIDArrayBean"        type="com.manniwood.mmpt.test.beans.UUIDArrayBean" />
+    <typeAlias alias="UUIDArrayTypeHandler" type="com.manniwood.mmpt.typehandlers.UUIDArrayTypeHandler" />
   </typeAliases>
 
   <typeHandlers>

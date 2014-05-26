@@ -238,4 +238,44 @@
 
 
 
+  <!-- int_array col allowed to be null so we can test null -->
+  <insert id="createUUIDArrayTestTable">
+    create temporary table uuid_array_test (
+        uuid_array  uuid[]      null,
+        name        text       not null)
+  </insert>
+
+  <insert id="insertUUIDArray" parameterType="UUIDArrayBean">
+    insert into uuid_array_test (uuid_array, name) 
+    values (#{uuidArray,javaType=uuid[],jdbcType=OTHER,typeHandler=UUIDArrayTypeHandler}, #{name})
+  </insert>
+
+  <resultMap id="selectUUIDArrayResultMap" type="UUIDArrayBean">
+    <id     property="uuidArray"  column="uuid_array"  typeHandler="UUIDArrayTypeHandler" />
+    <result property="name"          column="name"     />
+  </resultMap>
+
+  <select id="selectUUIDArray"
+          parameterType="UUIDArrayBean"
+          resultMap="selectUUIDArrayResultMap">
+    select uuid_array,
+           name
+      from uuid_array_test
+     where uuid_array = #{uuidArray,javaType=uuid[],jdbcType=OTHER,typeHandler=UUIDArrayTypeHandler}
+       and name = #{name}
+  </select>
+
+  <select id="selectNullUUIDArray"
+          parameterType="UUIDArrayBean"
+          resultMap="selectUUIDArrayResultMap">
+    select uuid_array,
+           name
+      from uuid_array_test
+     where name = #{name}
+  </select>
+
+
+
+
+
 </mapper>

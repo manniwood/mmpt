@@ -24,72 +24,79 @@ THE SOFTWARE.
 package com.manniwood.mmpt.test;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.manniwood.mmpt.test.beans.BooleanArrayBean;
+import com.manniwood.mmpt.test.beans.UUIDArrayBean;
 
 @Test
-public class BooleanArrayTest extends TypeTest {
+public class UUIDArrayTest extends TypeTest {
 
-    private static final String TABLE_CREATE_ID = "test.createBooleanArrayTestTable";
+    private static final String TABLE_CREATE_ID = "test.createUUIDArrayTestTable";
 
-    public BooleanArrayTest() {
+    public UUIDArrayTest() {
         super(TABLE_CREATE_ID);
     }
 
     @Test
-    public void testBooleanArray() {
+    public void testUUIDArray() {
         String testName = "basic test";
-        BooleanArrayBean t = new BooleanArrayBean();
-        Boolean[] booleanArray = new Boolean[] { true, false, true };
-        t.setBooleanArray(booleanArray);
+        UUIDArrayBean t = new UUIDArrayBean();
+        UUID[] uuidArray = new UUID[] {
+                UUID.fromString("00000000-0000-4000-8000-000000000001"),
+                UUID.fromString("00000000-0000-4000-8000-000000000002"),
+                UUID.fromString("00000000-0000-4000-8000-000000000003") };
+        t.setUUIDArray(uuidArray);
         t.setName(testName);
-        session.insert("test.insertBooleanArray", t);
+        session.insert("test.insertUUIDArray", t);
         session.commit(true);
 
-        BooleanArrayBean result;
-        result = session.selectOne("test.selectBooleanArray", t);
+        UUIDArrayBean result;
+        result = session.selectOne("test.selectUUIDArray", t);
         session.rollback(true);  // just a select; rollback
 
-        Assert.assertTrue(Arrays.equals(booleanArray, result.getBooleanArray()), "Boolean arrays need to match.");
+        Assert.assertTrue(Arrays.equals(uuidArray, result.getUUIDArray()), "UUID arrays need to match.");
         Assert.assertEquals(testName, result.getName(), "Test name needs to be " + testName);
     }
 
     @Test
-    public void testBooleanArrayWithEmbeddedNulls() {
+    public void testUUIDArrayWithEmbeddedNulls() {
         String testName = "embedded null test";
-        BooleanArrayBean t = new BooleanArrayBean();
-        Boolean[] booleanArray = new Boolean[] { true, null, false };
-        t.setBooleanArray(booleanArray);
+        UUIDArrayBean t = new UUIDArrayBean();
+        UUID[] uuidArray = new UUID[] {
+                UUID.fromString("00000000-0000-4000-8000-000000000001"),
+                null,
+                UUID.fromString("00000000-0000-4000-8000-000000000003") };
+        t.setUUIDArray(uuidArray);
         t.setName(testName);
-        session.insert("test.insertBooleanArray", t);
+        session.insert("test.insertUUIDArray", t);
         session.commit(true);
 
-        BooleanArrayBean result;
-        result = session.selectOne("test.selectBooleanArray", t);
+        UUIDArrayBean result;
+        result = session.selectOne("test.selectUUIDArray", t);
         session.rollback(true);  // just a select; rollback
 
-        Assert.assertTrue(Arrays.equals(booleanArray, result.getBooleanArray()), "Boolean arrays need to match.");
+        Assert.assertTrue(Arrays.equals(uuidArray, result.getUUIDArray()), "UUID arrays need to match.");
         Assert.assertEquals(testName, result.getName(), "Test name needs to be " + testName);
     }
 
     @Test
-    public void testNullBooleanArray() {
+    public void testNullUUIDArray() {
         String testName = "null test";
-        BooleanArrayBean t = new BooleanArrayBean();
-        Boolean[] booleanArray = null;
-        t.setBooleanArray(booleanArray);
+        UUIDArrayBean t = new UUIDArrayBean();
+        UUID[] uuidArray = null;
+        t.setUUIDArray(uuidArray);
         t.setName(testName);
-        session.insert("test.insertBooleanArray", t);
+        session.insert("test.insertUUIDArray", t);
         session.commit(true);
 
-        BooleanArrayBean result;
-        result = session.selectOne("test.selectNullBooleanArray", t);
+        UUIDArrayBean result;
+        result = session.selectOne("test.selectNullUUIDArray", t);
         session.rollback(true);  // just a select; rollback
 
-        Assert.assertNull(result.getBooleanArray(), "Boolean array must be null.");
+        Assert.assertNull(result.getUUIDArray(), "UUID array must be null.");
         Assert.assertEquals(testName, result.getName(), "Test name needs to be " + testName);
     }
 }
