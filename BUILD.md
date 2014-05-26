@@ -6,6 +6,7 @@ Once gradle is installed, all you will need to do is:
 
 ```Shell
 ./gradlew jar
+```
 
 To create the maven artifacts:
 

@@ -3,7 +3,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 
 group = 'com.manniwood'
-version = '2.0.0'
+version = '2.1.0-SNAPSHOT'
 description = "Manni's MyBatis PostgreSQL Tpes"
 
 repositories {

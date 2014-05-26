@@ -195,4 +195,47 @@
      where name = #{name}
   </select>
 
+
+
+
+  <!-- int_array col allowed to be null so we can test null -->
+  <insert id="createBooleanArrayTestTable">
+    create temporary table boolean_array_test (
+        boolean_array  boolean[]      null,
+        name                          text       not null)
+  </insert>
+
+  <insert id="insertBooleanArray" parameterType="BooleanArrayBean">
+    insert into boolean_array_test (boolean_array, name) 
+    values (#{booleanArray,javaType=boolean[],jdbcType=OTHER,typeHandler=BooleanArrayTypeHandler}, #{name})
+  </insert>
+
+  <resultMap id="selectBooleanArrayResultMap" type="BooleanArrayBean">
+    <id     property="booleanArray"  column="boolean_array"  typeHandler="BooleanArrayTypeHandler" />
+    <result property="name"          column="name"     />
+  </resultMap>
+
+  <select id="selectBooleanArray"
+          parameterType="BooleanArrayBean"
+          resultMap="selectBooleanArrayResultMap">
+    select boolean_array,
+           name
+      from boolean_array_test
+     where boolean_array = #{booleanArray,javaType=boolean[],jdbcType=OTHER,typeHandler=BooleanArrayTypeHandler}
+       and name = #{name}
+  </select>
+
+  <select id="selectNullBooleanArray"
+          parameterType="BooleanArrayBean"
+          resultMap="selectBooleanArrayResultMap">
+    select boolean_array,
+           name
+      from boolean_array_test
+     where name = #{name}
+  </select>
+
+
+
+
+
 </mapper>
