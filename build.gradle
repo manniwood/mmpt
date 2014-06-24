@@ -11,7 +11,7 @@ repositories {
 
 dependencies {
     compile 'org.mybatis:mybatis:3.2.7'
-    testCompile 'org.postgresql:postgresql:9.3-1101-jdbc4'
+    compile 'org.postgresql:postgresql:9.3-1101-jdbc4'
     testCompile 'ch.qos.logback:logback-core:1.1.2'
     testCompile 'ch.qos.logback:logback-classic:1.1.2'
     testCompile 'org.slf4j:slf4j-api:1.7.7'

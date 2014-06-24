@@ -42,6 +42,44 @@
 
 
 
+  <!-- test_id col allowed to be null so we can test null -->
+  <insert id="createJSONTestTable">
+    create temporary table json_test (
+         test_id  json      null,
+         name     text  not null)
+  </insert>
+
+  <insert id="insertJSON" parameterType="JSONBean">
+    insert into json_test (test_id, name) values (#{testId,javaType=String,jdbcType=OTHER,typeHandler=JSONTypeHandler}, #{name})
+  </insert>
+
+  <resultMap id="selectJSONResultMap" type="JSONBean">
+    <id     property="testId"  column="test_id"  typeHandler="JSONTypeHandler" />
+    <result property="name"    column="name"     />
+  </resultMap>
+
+  <!-- unlike other tests, do not also compare test_id, because there is no json = json operator -->
+  <select id="selectJSON"
+          parameterType="JSONBean"
+          resultMap="selectJSONResultMap">
+    select test_id,
+           name
+      from json_test
+     where name = #{name}
+  </select>
+
+  <select id="selectNullJSON"
+          parameterType="JSONBean"
+          resultMap="selectJSONResultMap">
+    select test_id,
+           name
+      from json_test
+     where name = #{name}
+  </select>
+
+
+
+
   <!-- int_array col allowed to be null so we can test null -->
   <insert id="createIntArrayTestTable">
     create temporary table int_array_test (

@@ -9,6 +9,9 @@
     <typeAlias alias="UUIDBean"        type="com.manniwood.mmpt.test.beans.UUIDBean" />
     <typeAlias alias="UUIDTypeHandler" type="com.manniwood.mmpt.typehandlers.UUIDTypeHandler" />
 
+    <typeAlias alias="JSONBean"        type="com.manniwood.mmpt.test.beans.JSONBean" />
+    <typeAlias alias="JSONTypeHandler" type="com.manniwood.mmpt.typehandlers.JSONTypeHandler" />
+
     <typeAlias alias="IntegerArrayBean"        type="com.manniwood.mmpt.test.beans.IntegerArrayBean" />
     <typeAlias alias="IntegerArrayTypeHandler" type="com.manniwood.mmpt.typehandlers.IntegerArrayTypeHandler" />
 
