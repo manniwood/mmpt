@@ -38,9 +38,9 @@
       <transactionManager type="JDBC"/>
       <dataSource type="UNPOOLED">
         <property name="driver"                           value="org.postgresql.Driver"/>
-        <property name="url"                              value="jdbc:postgresql://localhost:5432/test"/>
-        <property name="username"                         value="test"/>
-        <property name="password"                         value="test"/>
+        <property name="url"                              value="jdbc:postgresql://localhost:5432/postgres"/>
+        <property name="username"                         value="postgres"/>
+        <property name="password"                         value="postgres"/>
         <property name="defaultTransactionIsolationLevel" value="2"/>  <!-- 2 == TRANSACTION_READ_COMMITTED -->
         <property name="driver.ApplicationName"           value="Test Application"/>
       </dataSource>

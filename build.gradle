@@ -1,10 +1,9 @@
 apply plugin: 'maven'
 apply plugin: 'java'
-apply plugin: 'eclipse'
 
 group = 'com.manniwood'
 version = '2.1.0-SNAPSHOT'
-description = "Manni's MyBatis PostgreSQL Tpes"
+description = "Manni's MyBatis PostgreSQL Types"
 
 repositories {
     mavenCentral()
