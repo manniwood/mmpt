@@ -33,7 +33,7 @@ repositories {
 and then your dependencies section will have this entry for the MMPT library:
 ```Groovy
 dependencies {
-    compile 'com.manniwood:mmpt:2.0.0'
+    compile 'com.manniwood:mmpt:2.1.0'
     // other dependencies here, obviously
 }
 ```
@@ -263,13 +263,16 @@ The full list of mappings available in MMPT are:
 PostgreSQL Type |Java Type            |MyBatis Built-In Alias|Suggested Alias|JDBC Type|MMPT Type Handler (in com.manniwood.mmpt.typehandlers.)
 ----------------|---------------------|----------------------|---------------|---------|-----------------
 uuid            |java.util.UUID       |                      |UUID           |OTHER    |UUIDTypeHandler
+json            |java.lang.String     |string                |               |OTHER    |JSONTypeHandler
 smallint[]      |[Ljava.lang.Integer; |int[]                 |               |OTHER    |SmallIntArrayTypeHandler
 integer[]       |[Ljava.lang.Integer; |int[]                 |               |OTHER    |IntegerArrayTypeHandler
 bigint[]        |[Ljava.lang.Long;    |long[]                |               |OTHER    |BigIntArrayTypeHandler
 text[]          |[Ljava.lang.String;  |                      |String[]       |OTHER    |TextArrayTypeHandler
 boolean[]       |[Ljava.lang.Boolean; |boolean[]             |               |OTHER    |BooleanArrayTypeHandler
+uuid[]          |[Ljava.lang.UUID;    |                      |UUID[]         |OTHER    |UUIDArrayTypeHandler
 
 Note that it might have been more ideal (not to mention more expected!) to have the SmallIntArrayTypeHandler
 take/receive an array of Short rather than an array of Integer. However, the underlying PostgreSQL JDBC
 driver actually returns an array of Integer, not an array of Short! So, this concession had to be made
 in the type handler.
+

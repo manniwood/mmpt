@@ -33,7 +33,7 @@ repositories {
 and then your dependencies section will have this entry for the MMPT library:
 ```Groovy
 dependencies {
-    compile 'com.manniwood:mmpt:2.0.0'
+    compile 'com.manniwood:mmpt:2.1.0'
     // other dependencies here, obviously
 }
 ```
@@ -263,6 +263,7 @@ The full list of mappings available in MMPT are:
 PostgreSQL Type |Java Type            |MyBatis Built-In Alias|Suggested Alias|JDBC Type|MMPT Type Handler (in com.manniwood.mmpt.typehandlers.)
 ----------------|---------------------|----------------------|---------------|---------|-----------------
 uuid            |java.util.UUID       |                      |UUID           |OTHER    |UUIDTypeHandler
+json            |java.lang.String     |string                |               |OTHER    |JSONTypeHandler
 smallint[]      |[Ljava.lang.Integer; |int[]                 |               |OTHER    |SmallIntArrayTypeHandler
 integer[]       |[Ljava.lang.Integer; |int[]                 |               |OTHER    |IntegerArrayTypeHandler
 bigint[]        |[Ljava.lang.Long;    |long[]                |               |OTHER    |BigIntArrayTypeHandler
