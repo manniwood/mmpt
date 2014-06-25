@@ -5,7 +5,7 @@ You will need Gradle installed to build the jar file from source.
 Once gradle is installed, all you will need to do is:
 
 ```Shell
-./gradlew jar
+./gradlew clean jar sourcesJar
 ```
 
 To create the maven artifacts:
