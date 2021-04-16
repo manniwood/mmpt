@@ -1,5 +1,13 @@
 # MMPT: Manni's MyBatis PostgreSQL Types
 
+## This is abandonware
+
+In particular, I don't know how much longer the bintray download will work.
+
+Feel free to fork this repo, though!
+
+## Summary
+
 Note: This README is for the release version of MMPT.
 As development continues on master, follow README-master.md.
 When releases are made, part of the process will be copying README-master.md
